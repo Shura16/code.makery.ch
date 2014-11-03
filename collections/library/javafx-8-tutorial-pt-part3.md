@@ -70,48 +70,48 @@ sidebars:
 ![Screenshot AddressApp Part 3](/assets/library/javafx-8-tutorial/part3/addressapp-part3.png)
 
 
-## Topics in Part 3
+## Tópicos na Parte 3
 
-* **React to selection changes** in the table.
-* Add functionality to the **add**, **edit**, and **remove** buttons.
-* Create a custom **popup dialog** to edit a person.
-* **Validate user input**.
+* **Reagir a mudanças de seleção** na  tabela.
+* Adicionar funcionalidade aos botões **Adicionar (add)**, **Editar (edit)**, e **Remover (remove)**.
+* Criar uma **janela popup** customizada pra editar uma pessoa.
+* **Validar entrada do usuário**.
 
 
 *****
 
 
-## React to Table Selections
+## Reagir a Seleções na Tabela
 
-Obviousely, we haven't used the right side of our application, yet. The idea is to display the details about a person on the right side when the user selects a person in the table.
+Obviamente, nós ainda não usamos o lado direito da nossa aplicação. A idéia é mostrar os detalhes sobre uma pessoa no lado direito quando o usuário seleciona uma pessoa na tabela.
 
-First, let's add a new method inside `PersonOverviewController` that helps us fill the labels with the data from a single `Person`.
+Primeiro, vamos adicionar um novo método dentro de `PersonOverviewController` que nos ajuda a preencher as labels com os dados de uma única `Person`.
 
-Create a method called `showPersonDetails(Person person)`. Go trough all the labels and set the text using `setText(...)` with details from the person. If `null` is passed as parameter, all labels should be cleared.
+Crie um étodo chamado `showPersonDetails(Person person)`. Vá em todas as labels e defina o texto usando `setText(...)` com detalhes da pessoa. Se `null` for passado como parâmetro, todas as labels seriam limpas.
 
 
 ##### PersonOverviewController.java
 
 <pre class="prettyprint lang-java">
 /**
- * Fills all text fields to show details about the person.
- * If the specified person is null, all text fields are cleared.
+ * Preenche todos os campso de texto para mostrar detalhes da pessoa.
+ * Se a pessoa especificada for nula, todos os campos de texto são limpos.
  * 
- * @param person the person or null
+ * @param person A pessoa or null
  */
 private void showPersonDetails(Person person) {
     if (person != null) {
-        // Fill the labels with info from the person object.
+        // Preenche as labels com informação do objeto pessoa.
         firstNameLabel.setText(person.getFirstName());
         lastNameLabel.setText(person.getLastName());
         streetLabel.setText(person.getStreet());
         postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
         cityLabel.setText(person.getCity());
 
-        // TODO: We need a way to convert the birthday into a String! 
+        // TODO: Nós precisamos de uma maneira de converter o aniversário em uma String! 
         // birthdayLabel.setText(...);
     } else {
-        // Person is null, remove all the text.
+        // Pessoa é null, remove todo o texto.
         firstNameLabel.setText("");
         lastNameLabel.setText("");
         streetLabel.setText("");
@@ -123,9 +123,9 @@ private void showPersonDetails(Person person) {
 </pre>
 
 
-### Convert the Birthday Date to a String
+### Converter a Data de Aniversário em uma String
 
-You will notice that we couldn't set the `birthday` into the `Label` because it is of type `LocalDate` and not a `String`. We need to format the date first.
+Você notará que nós não poderíamos set the `birthday` into the `Label` because it is of type `LocalDate` and not a `String`. We need to format the date first.
 
 We will use the conversion from `LocalDate` and `String` and vice versa in several places. It's good practice to create a helper class with `static` methods for this. We'll call it `DateUtil` and place it in a seperate package called `ch.makery.address.util`:
 
